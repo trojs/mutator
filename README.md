@@ -45,6 +45,30 @@ const result = ExampleMutator.create({ test: 'ok' })
 }
 ```
 
+You can also hydrate the object with new data
+
+```javascript
+const result = ExampleMutator.create({ test: 'ok', test2: 'also ok' })
+{
+    test: 'ok',
+    test2: 'also ok'
+}
+
+result.hydrate({ sku: 43})
+{
+    test: 'ok',
+    test2: 'also ok',
+    sku: '*43*'
+}
+
+result.hydrate({ test: 'another text'})
+{
+    test: 'another text',
+    test2: 'also ok',
+    sku: '*43*'
+}
+```
+
 [npm-url]: https://www.npmjs.com/package/@hckrnews/mutator
 [npm-image]: https://img.shields.io/npm/v/@hckrnews/mutator.svg
 [travis-url]: https://travis-ci.org/hckrnews/mutator

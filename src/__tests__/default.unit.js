@@ -27,4 +27,22 @@ describe('Test the filter mutator', () => {
     const result = ExampleMutator.create({ test: 'ok', test2: 'also ok' })
     expect({ ...result }).toEqual({ test: 'ok', test2: 'also ok' })
   })
+
+  it('It should hydrate the object with new data', () => {
+    const result = ExampleMutator.create({ test: 'ok', test2: 'also ok' })
+    expect({ ...result }).toEqual({ test: 'ok', test2: 'also ok' })
+    result.hydrate({ sku: 43})
+    expect({ ...result }).toEqual({ sku: '*43*', test: 'ok', test2: 'also ok' })
+    result.hydrate({ test: 'another text'})
+    expect({ ...result }).toEqual({ sku: '*43*', test: 'another text', test2: 'also ok' })
+  })
+
+  it('It should set data', () => {
+    const result = ExampleMutator.create({ test: 'ok', test2: 'also ok' })
+    expect({ ...result }).toEqual({ test: 'ok', test2: 'also ok' })
+    result.setter(['sku', 43])
+    expect({ ...result }).toEqual({ sku: '*43*', test: 'ok', test2: 'also ok' })
+    result.setter(['test', 'another text'])
+    expect({ ...result }).toEqual({ sku: '*43*', test: 'another text', test2: 'also ok' })
+  })
 })
