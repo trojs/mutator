@@ -20,7 +20,7 @@ or
 ## Example usage
 
 ```javascript
-import DefaultMutator from '@hckrnews/mutator`
+import DefaultMutator from '@hckrnews/mutator'
 
 class ExampleMutator extends DefaultMutator {
   setSkuAttribute (sku) {
