@@ -1,4 +1,4 @@
-import { capitalizeFirstLetter } from './string-helper.js';
+import { capitalizeWords } from './string-helper.js';
 
 export default class DefaultMutator {
     setter([key, value]) {
@@ -6,7 +6,7 @@ export default class DefaultMutator {
             return;
         }
 
-        const fn = `set${capitalizeFirstLetter(key)}Attribute`;
+        const fn = `set${capitalizeWords(key)}Attribute`;
         if (this?.[fn]?.constructor === Function) {
             this[fn](value);
             return;
