@@ -6,6 +6,14 @@ export default class DefaultMutator {
             return;
         }
 
+        if (value.constructor === Object) {
+            Object.entries(value).forEach(([subKey, subValue]) => {
+                const result = [`${key}_${subKey}`, subValue];
+                this.setter(result);
+            });
+            return;
+        }
+
         const fn = `set${capitalizeWords(key)}Attribute`;
         if (this?.[fn]?.constructor === Function) {
             this[fn](value);
