@@ -1,7 +1,7 @@
 {
     "name": "@hckrnews/mutator",
     "description": "Mutate the value when set some data",
-    "version": "0.1.3",
+    "version": "0.2.0",
     "author": {
         "name": "Pieter Wigboldus",
         "url": "https://hckr.news/"
@@ -14,7 +14,7 @@
         "test:watch": "jest src --watch",
         "coveralls": "jest && codecov && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
         "cpd": "node_modules/jscpd/bin/jscpd src",
-        "vulnerabilities": "npm audit --json | npm-audit-helper --prod-only"
+        "vulnerabilities": "npm audit --only=prod"
     },
     "type": "module",
     "files": [
@@ -42,7 +42,6 @@
         "jest": "^27.0.6",
         "jscpd": "^3.2.1",
         "microbundle": "^0.13.0",
-        "npm-audit-helper": "^3.1.0",
         "prettier": "^2.2.1"
     },
     "repository": {

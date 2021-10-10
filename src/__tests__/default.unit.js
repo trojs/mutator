@@ -10,6 +10,18 @@ class ExampleMutator extends DefaultMutator {
         this.product ??= { group: null };
         this.product.group = `*${productGroup}*`;
     }
+
+    setSubTestAttribute(value) {
+        this.sub = { ...this.sub, test: `*${value}*` };
+    }
+
+    setSubFirstAttribute(value) {
+        this.sub = { ...this.sub, first: value };
+    }
+
+    setSubLastAttribute(value) {
+        this.sub = { ...this.sub, last: value };
+    }
 }
 
 describe('Test the filter mutator', () => {
@@ -82,6 +94,25 @@ describe('Test the filter mutator', () => {
             sku: '*43*',
             test: 'another text',
             test2: 'also ok',
+        });
+    });
+
+    it('It should also mutate the sub fields', () => {
+        const result = ExampleMutator.create({
+            noMutation: 'ok',
+            sub: {
+                first: 1,
+                test: 42,
+                last: 99,
+            },
+        });
+        expect({ ...result }).toEqual({
+            noMutation: 'ok',
+            sub: {
+                first: 1,
+                test: '*42*',
+                last: 99,
+            },
         });
     });
 });
