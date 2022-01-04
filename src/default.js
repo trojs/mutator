@@ -1,30 +1,37 @@
 import { capitalizeWords } from './string-helper.js';
 
 export default class DefaultMutator {
-    setter([key, value]) {
+    mapper([key, value]) {
         if (value === undefined || value === null || Number.isNaN(value)) {
-            return;
+            return [key, undefined];
         }
 
         if (value.constructor === Object) {
-            Object.entries(value).forEach(([subKey, subValue]) => {
-                const result = [`${key}_${subKey}`, subValue];
-                this.setter(result);
-            });
-            return;
+            const mappedResult = Object.entries(value).map(
+                ([subKey, subValue]) => {
+                    const result = [`${key}_${subKey}`, subValue];
+                    return [subKey, this.mapper(result)[1]];
+                }
+            );
+
+            const filteredResult = mappedResult.filter(Boolean);
+
+            return [key, Object.fromEntries(filteredResult)];
         }
 
         const fn = `set${capitalizeWords(key)}Attribute`;
         if (this?.[fn]?.constructor === Function) {
-            this[fn](value);
-            return;
+            return [key, this[fn](value)];
         }
 
-        this[key] = value;
+        return [key, value];
     }
 
     hydrate(data) {
-        Object.entries(data).forEach(this.setter.bind(this));
+        const result = Object.entries(data).map(this.mapper.bind(this));
+        const filteredResult = result.filter(Boolean);
+
+        Object.assign(this, Object.fromEntries(filteredResult));
     }
 
     static create(data) {

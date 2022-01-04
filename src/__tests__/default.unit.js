@@ -3,24 +3,23 @@ import DefaultMutator from '../default.js';
 
 class ExampleMutator extends DefaultMutator {
     setSkuAttribute(sku) {
-        this.sku = `*${sku}*`;
+        return `*${sku}*`;
     }
 
     setProductGroupAttribute(productGroup) {
-        this.product ??= { group: null };
-        this.product.group = `*${productGroup}*`;
+        return `*${productGroup}*`;
     }
 
     setSubTestAttribute(value) {
-        this.sub = { ...this.sub, test: `*${value}*` };
+       return `*${value}*`;
     }
 
     setSubFirstAttribute(value) {
-        this.sub = { ...this.sub, first: value };
+        return value
     }
 
     setSubLastAttribute(value) {
-        this.sub = { ...this.sub, last: value };
+        return value
     }
 }
 
@@ -54,7 +53,7 @@ describe('Test the filter mutator', () => {
     });
 
     it('It should handle the product_group', () => {
-        const result = ExampleMutator.create({ product_group: 'test' });
+        const result = ExampleMutator.create({ product: { group: 'test' } });
         expect({ ...result }).toEqual({ product: { group: '*test*' } });
     });
 
@@ -83,13 +82,15 @@ describe('Test the filter mutator', () => {
     it('It should set data', () => {
         const result = ExampleMutator.create({ test: 'ok', test2: 'also ok' });
         expect({ ...result }).toEqual({ test: 'ok', test2: 'also ok' });
-        result.setter(['sku', 43]);
+
+        result.hydrate({ sku: 43 });
         expect({ ...result }).toEqual({
             sku: '*43*',
             test: 'ok',
             test2: 'also ok',
         });
-        result.setter(['test', 'another text']);
+
+        result.hydrate({ test: 'another text' });
         expect({ ...result }).toEqual({
             sku: '*43*',
             test: 'another text',
@@ -113,6 +114,17 @@ describe('Test the filter mutator', () => {
                 test: '*42*',
                 last: 99,
             },
+        });
+    });
+
+    it('It should handle the product_group', () => {
+        const result = ExampleMutator.create({
+            product: { group: 'test' },
+            another: { test: 'ok' },
+        });
+        expect({ ...result }).toEqual({
+            product: { group: '*test*' },
+            another: { test: 'ok' },
         });
     });
 });
