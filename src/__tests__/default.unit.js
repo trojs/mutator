@@ -11,15 +11,15 @@ class ExampleMutator extends DefaultMutator {
     }
 
     setSubTestAttribute(value) {
-       return `*${value}*`;
+        return `*${value}*`;
     }
 
     setSubFirstAttribute(value) {
-        return value
+        return value;
     }
 
     setSubLastAttribute(value) {
-        return value
+        return value;
     }
 }
 
