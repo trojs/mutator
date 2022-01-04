@@ -79,25 +79,6 @@ describe('Test the filter mutator', () => {
         });
     });
 
-    it('It should set data', () => {
-        const result = ExampleMutator.create({ test: 'ok', test2: 'also ok' });
-        expect({ ...result }).toEqual({ test: 'ok', test2: 'also ok' });
-
-        result.hydrate({ sku: 43 });
-        expect({ ...result }).toEqual({
-            sku: '*43*',
-            test: 'ok',
-            test2: 'also ok',
-        });
-
-        result.hydrate({ test: 'another text' });
-        expect({ ...result }).toEqual({
-            sku: '*43*',
-            test: 'another text',
-            test2: 'also ok',
-        });
-    });
-
     it('It should also mutate the sub fields', () => {
         const result = ExampleMutator.create({
             noMutation: 'ok',
