@@ -47,6 +47,15 @@ describe('Test the filter mutator', () => {
         expect({ ...result }).toEqual({ sku: '*42*', test: 'ok' });
     });
 
+    it('It should set the item only if the value isnt null', () => {
+        const result = ExampleMutator.create({
+            sku: null,
+            test: 'ok',
+            test2: null,
+        });
+        expect({ ...result }).toEqual({ test: 'ok' });
+    });
+
     it('It should only call a setter', () => {
         const result = ExampleMutator.create({ sku: 42 });
         expect({ ...result }).toEqual({ sku: '*42*' });
