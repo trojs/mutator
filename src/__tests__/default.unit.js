@@ -52,9 +52,14 @@ describe('Test the filter mutator', () => {
         expect({ ...result }).toEqual({ sku: '*42*' });
     });
 
-    it('It should handle the product_group', () => {
+    it('It should handle the product.group', () => {
         const result = ExampleMutator.create({ product: { group: 'test' } });
         expect({ ...result }).toEqual({ product: { group: '*test*' } });
+    });
+
+    it('It should handle the product_group', () => {
+        const result = ExampleMutator.create({ product_group: 'test' });
+        expect({ ...result }).toEqual({ product_group: '*test*' });
     });
 
     it('It should not call a setter', () => {
