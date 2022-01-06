@@ -3,24 +3,23 @@ import DefaultMutator from '../default.js';
 
 class ExampleMutator extends DefaultMutator {
     setSkuAttribute(sku) {
-        this.sku = `*${sku}*`;
+        return `*${sku}*`;
     }
 
     setProductGroupAttribute(productGroup) {
-        this.product ??= { group: null };
-        this.product.group = `*${productGroup}*`;
+        return `*${productGroup}*`;
     }
 
     setSubTestAttribute(value) {
-        this.sub = { ...this.sub, test: `*${value}*` };
+        return `*${value}*`;
     }
 
     setSubFirstAttribute(value) {
-        this.sub = { ...this.sub, first: value };
+        return value;
     }
 
     setSubLastAttribute(value) {
-        this.sub = { ...this.sub, last: value };
+        return value;
     }
 }
 
@@ -53,9 +52,14 @@ describe('Test the filter mutator', () => {
         expect({ ...result }).toEqual({ sku: '*42*' });
     });
 
+    it('It should handle the product.group', () => {
+        const result = ExampleMutator.create({ product: { group: 'test' } });
+        expect({ ...result }).toEqual({ product: { group: '*test*' } });
+    });
+
     it('It should handle the product_group', () => {
         const result = ExampleMutator.create({ product_group: 'test' });
-        expect({ ...result }).toEqual({ product: { group: '*test*' } });
+        expect({ ...result }).toEqual({ product_group: '*test*' });
     });
 
     it('It should not call a setter', () => {
@@ -80,23 +84,6 @@ describe('Test the filter mutator', () => {
         });
     });
 
-    it('It should set data', () => {
-        const result = ExampleMutator.create({ test: 'ok', test2: 'also ok' });
-        expect({ ...result }).toEqual({ test: 'ok', test2: 'also ok' });
-        result.setter(['sku', 43]);
-        expect({ ...result }).toEqual({
-            sku: '*43*',
-            test: 'ok',
-            test2: 'also ok',
-        });
-        result.setter(['test', 'another text']);
-        expect({ ...result }).toEqual({
-            sku: '*43*',
-            test: 'another text',
-            test2: 'also ok',
-        });
-    });
-
     it('It should also mutate the sub fields', () => {
         const result = ExampleMutator.create({
             noMutation: 'ok',
@@ -113,6 +100,17 @@ describe('Test the filter mutator', () => {
                 test: '*42*',
                 last: 99,
             },
+        });
+    });
+
+    it('It should handle the product_group', () => {
+        const result = ExampleMutator.create({
+            product: { group: 'test' },
+            another: { test: 'ok' },
+        });
+        expect({ ...result }).toEqual({
+            product: { group: '*test*' },
+            another: { test: 'ok' },
         });
     });
 });
