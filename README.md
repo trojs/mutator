@@ -24,7 +24,7 @@ import DefaultMutator from '@hckrnews/mutator'
 
 class ExampleMutator extends DefaultMutator {
   setSkuAttribute (sku) {
-    this.sku = `*${sku}*`
+    return `*${sku}*`
   }
 }
 
