@@ -29,7 +29,9 @@ export default class DefaultMutator {
 
     hydrate(data) {
         const result = Object.entries(data).map(this.mapper.bind(this));
-        const filteredResult = result.filter(Boolean);
+        const filteredResult = result.filter(
+            ([key, value]) => key && value !== undefined
+        );
 
         Object.assign(this, Object.fromEntries(filteredResult));
     }
