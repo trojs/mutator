@@ -1,7 +1,7 @@
 {
     "name": "@hckrnews/mutator",
     "description": "Mutate the value when set some data",
-    "version": "0.3.3",
+    "version": "0.3.4",
     "author": {
         "name": "Pieter Wigboldus",
         "url": "https://hckr.news/"
@@ -40,7 +40,7 @@
         "eslint-plugin-n": "^16.2.0",
         "eslint-plugin-prettier": "^5.0.0",
         "eslint-plugin-promise": "^6.1.1",
-        "eslint-plugin-sonarjs": "^0.21.0",
+        "eslint-plugin-sonarjs": "^0.23.0",
         "jest": "^29.0.0",
         "jscpd": "^3.2.1",
         "prettier": "^3.0.0"
