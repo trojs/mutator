@@ -1,7 +1,7 @@
 {
     "name": "@hckrnews/mutator",
     "description": "Mutate the value when set some data",
-    "version": "0.3.4",
+    "version": "0.3.5",
     "author": {
         "name": "Pieter Wigboldus",
         "url": "https://hckr.news/"
@@ -10,6 +10,7 @@
     "scripts": {
         "lint": "eslint src/*.js --config .eslintrc",
         "lint:fix": "eslint src/*.js --config .eslintrc --fix",
+        "lint:report": "eslint src/*.js --config .eslintrc -f json -o report.json",
         "test": "jest",
         "test:watch": "jest src --watch",
         "coveralls": "jest && codecov && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
