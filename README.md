@@ -1,6 +1,6 @@
 # Mutate the value when set some data
 
-[![NPM version][npm-image]][npm-url] [![Coveralls Status][coveralls-image]][coveralls-url]
+[![NPM version][npm-image]][npm-url]
 
 With this package you can define some setters that are optional.
 So it change the value for the defined setters, but if you don't pass the key, it doesnt set the key.
@@ -71,5 +71,3 @@ result.hydrate({ test: 'another text'})
 
 [npm-url]: https://www.npmjs.com/package/@trojs/mutator
 [npm-image]: https://img.shields.io/npm/v/@trojs/mutator.svg
-[coveralls-url]: https://coveralls.io/r/hckrnews/mutator
-[coveralls-image]: https://img.shields.io/coveralls/hckrnews/mutator/main.svg
