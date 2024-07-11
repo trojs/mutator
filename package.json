@@ -24,10 +24,10 @@
     ],
     "main": "src/default.js",
     "devDependencies": {
-        "@babel/core": "^7.9.0",
+        "@babel/core": "^7.24.7",
         "@babel/eslint-parser": "^7.14.7",
-        "@babel/plugin-transform-modules-commonjs": "^7.14.0",
-        "@babel/preset-env": "^7.9.5",
+        "@babel/plugin-transform-modules-commonjs": "^7.24.7",
+        "@babel/preset-env": "^7.24.7",
         "@jest/globals": "^29.0.0",
         "babel-jest": "^29.0.0",
         "eslint": "^8.6.0",
