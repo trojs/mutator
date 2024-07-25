@@ -1,45 +1,45 @@
-import { capitalizeWords } from './string-helper.js'
+import { capitalizeWords } from './string-helper.js';
 
 export default class DefaultMutator {
-  mapper ([key, value]) {
-    if (value === undefined || value === null || Number.isNaN(value)) {
-      return [key, undefined]
-    }
-
-    if (value.constructor === Object) {
-      const mappedResult = Object.entries(value).map(
-        ([subKey, subValue]) => {
-          const result = [`${key}_${subKey}`, subValue]
-          return [subKey, this.mapper(result)[1]]
+    mapper([key, value]) {
+        if (value === undefined || value === null || Number.isNaN(value)) {
+            return [key, undefined];
         }
-      )
 
-      const filteredResult = mappedResult.filter(Boolean)
+        if (value.constructor === Object) {
+            const mappedResult = Object.entries(value).map(
+                ([subKey, subValue]) => {
+                    const result = [`${key}_${subKey}`, subValue];
+                    return [subKey, this.mapper(result)[1]];
+                }
+            );
 
-      return [key, Object.fromEntries(filteredResult)]
+            const filteredResult = mappedResult.filter(Boolean);
+
+            return [key, Object.fromEntries(filteredResult)];
+        }
+
+        const fn = `set${capitalizeWords(key)}Attribute`;
+        if (this?.[fn]?.constructor === Function) {
+            return [key, this[fn](value)];
+        }
+
+        return [key, value];
     }
 
-    const fn = `set${capitalizeWords(key)}Attribute`
-    if (this?.[fn]?.constructor === Function) {
-      return [key, this[fn](value)]
+    hydrate(data) {
+        const result = Object.entries(data).map(this.mapper.bind(this));
+        const filteredResult = result.filter(
+            ([key, value]) => key && value !== undefined
+        );
+
+        Object.assign(this, Object.fromEntries(filteredResult));
     }
 
-    return [key, value]
-  }
+    static create(data) {
+        const view = new this();
+        view.hydrate(data);
 
-  hydrate (data) {
-    const result = Object.entries(data).map(this.mapper.bind(this))
-    const filteredResult = result.filter(
-      ([key, value]) => key && value !== undefined
-    )
-
-    Object.assign(this, Object.fromEntries(filteredResult))
-  }
-
-  static create (data) {
-    const view = new this()
-    view.hydrate(data)
-
-    return view
-  }
+        return view;
+    }
 }
