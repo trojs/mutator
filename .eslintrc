@@ -6,11 +6,14 @@
     },
     "root": true,
     "extends": [
-        "standard",
+        "@hckrnews/eslint-config",
         "plugin:import/recommended",
         "plugin:n/recommended",
         "plugin:jsdoc/recommended",
         "plugin:sonarjs/recommended"
+    ],
+    "plugins": [
+        "import"
     ],
     "parserOptions": {
         "sourceType": "module",
@@ -33,6 +36,13 @@
         "webextensions": true
     },
     "rules": {
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "js": "always"
+            }
+        ],
         "block-scoped-var": "error",
         "complexity": [
             "error",
