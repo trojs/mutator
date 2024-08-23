@@ -1,7 +1,7 @@
 {
     "name": "@trojs/mutator",
     "description": "Mutate the value when set some data",
-    "version": "0.4.4",
+    "version": "0.4.5",
     "author": {
         "name": "Pieter Wigboldus",
         "url": "https://trojs.org/"
