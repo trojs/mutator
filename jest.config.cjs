@@ -1,10 +1,6 @@
 module.exports = {
     moduleFileExtensions: ['js', 'jsx', 'json'],
 
-    transform: {
-        '^.+\\.js?$': 'babel-jest'
-    },
-
     transformIgnorePatterns: ['node_modules/(?!(@hckrnews|@htrojs)/)'],
 
     moduleNameMapper: {

@@ -1,6 +1,6 @@
-import { expect, describe, it } from '@jest/globals'
+import { describe, it } from 'node:test'
+import assert from 'node:assert'
 import DefaultMutator from '../default.js'
-
 class ExampleMutator extends DefaultMutator {
     setSkuAttribute (sku) {
         return `*${sku}*`
@@ -34,7 +34,7 @@ describe('Test the filter mutator', () => {
             test6: 0,
             test7: 1
         })
-        expect({ ...result }).toEqual({
+        assert.deepEqual({ ...result }, {
             test: 'ok',
             test5: false,
             test6: 0,
@@ -44,7 +44,7 @@ describe('Test the filter mutator', () => {
 
     it('It should set the item', () => {
         const result = ExampleMutator.create({ sku: 42, test: 'ok' })
-        expect({ ...result }).toEqual({ sku: '*42*', test: 'ok' })
+        assert.deepEqual({ ...result }, { sku: '*42*', test: 'ok' })
     })
 
     it('It should set the item only if the value isnt null', () => {
@@ -53,40 +53,40 @@ describe('Test the filter mutator', () => {
             test: 'ok',
             test2: null
         })
-        expect({ ...result }).toEqual({ test: 'ok' })
+        assert.deepEqual({ ...result }, { test: 'ok' })
     })
 
     it('It should only call a setter', () => {
         const result = ExampleMutator.create({ sku: 42 })
-        expect({ ...result }).toEqual({ sku: '*42*' })
+        assert.deepEqual({ ...result }, { sku: '*42*' })
     })
 
     it('It should handle the product.group', () => {
         const result = ExampleMutator.create({ product: { group: 'test' } })
-        expect({ ...result }).toEqual({ product: { group: '*test*' } })
+        assert.deepEqual({ ...result }, { product: { group: '*test*' } })
     })
 
     it('It should handle the product_group', () => {
         const result = ExampleMutator.create({ product_group: 'test' })
-        expect({ ...result }).toEqual({ product_group: '*test*' })
+        assert.deepEqual({ ...result }, { product_group: '*test*' })
     })
 
     it('It should not call a setter', () => {
         const result = ExampleMutator.create({ test: 'ok', test2: 'also ok' })
-        expect({ ...result }).toEqual({ test: 'ok', test2: 'also ok' })
+        assert.deepEqual({ ...result }, { test: 'ok', test2: 'also ok' })
     })
 
     it('It should hydrate the object with new data', () => {
         const result = ExampleMutator.create({ test: 'ok', test2: 'also ok' })
-        expect({ ...result }).toEqual({ test: 'ok', test2: 'also ok' })
+        assert.deepEqual({ ...result }, { test: 'ok', test2: 'also ok' })
         result.hydrate({ sku: 43 })
-        expect({ ...result }).toEqual({
+        assert.deepEqual({ ...result }, {
             sku: '*43*',
             test: 'ok',
             test2: 'also ok'
         })
         result.hydrate({ test: 'another text' })
-        expect({ ...result }).toEqual({
+        assert.deepEqual({ ...result }, {
             sku: '*43*',
             test: 'another text',
             test2: 'also ok'
@@ -102,7 +102,7 @@ describe('Test the filter mutator', () => {
                 last: 99
             }
         })
-        expect({ ...result }).toEqual({
+        assert.deepEqual({ ...result },{
             noMutation: 'ok',
             sub: {
                 first: 1,
@@ -117,7 +117,7 @@ describe('Test the filter mutator', () => {
             product: { group: 'test' },
             another: { test: 'ok' }
         })
-        expect({ ...result }).toEqual({
+        assert.deepEqual({ ...result },{
             product: { group: '*test*' },
             another: { test: 'ok' }
         })
