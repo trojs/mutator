@@ -1,7 +1,6 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert'
 import DefaultMutator from '../default.js'
-
 class ExampleMutator extends DefaultMutator {
     setSkuAttribute (sku) {
         return `*${sku}*`
@@ -74,7 +73,7 @@ describe('Test the filter mutator', () => {
 
     it('It should not call a setter', () => {
         const result = ExampleMutator.create({ test: 'ok', test2: 'also ok' })
-       assert.deepEqual({ ...result }, { test: 'ok', test2: 'also ok' })
+        assert.deepEqual({ ...result }, { test: 'ok', test2: 'also ok' })
     })
 
     it('It should hydrate the object with new data', () => {

@@ -24,12 +24,15 @@ const testCases = [
         expectedResult: 'TEstTeStTesT'
     }
 ]
+describe('Test the item filter method', () => {
 
-testCases.forEach(
-    ({ description, input, expectedResult }) => {
-        it(description, () => {
-            const result = capitalizeWords(input)
-           assert.deepEqual(result, expectedResult)
-        })
-    }
-)
+    testCases.forEach(
+        ({ description, input, expectedResult }) => {
+            it(description, () => {
+                const result = capitalizeWords(input)
+                assert.deepEqual(result, expectedResult)
+            })
+        }
+    )
+
+})
