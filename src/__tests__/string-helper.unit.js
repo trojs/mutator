@@ -1,4 +1,5 @@
-import { expect, describe, it } from '@jest/globals'
+import { describe, it } from 'node:test'
+import assert from 'node:assert'
 import { capitalizeWords } from '../string-helper.js'
 
 const testCases = [
@@ -24,12 +25,11 @@ const testCases = [
     }
 ]
 
-describe.each(testCases)(
-    'Test the item filter method',
+testCases.forEach(
     ({ description, input, expectedResult }) => {
         it(description, () => {
             const result = capitalizeWords(input)
-            expect(result).toEqual(expectedResult)
+           assert.deepEqual(result, expectedResult)
         })
     }
 )
